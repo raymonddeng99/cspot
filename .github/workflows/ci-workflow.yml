@@ -15,9 +15,9 @@ jobs:
           git clone https://github.com/MAYHEM-Lab/cspot.git
       - name: Run make in repos
         run: |
-          cd euca-cutils; make
-          cd mio; make
-          cd cspot; make
+          cd euca-cutils; make; cd ..
+          cd mio; make; cd ..
+          cd cspot; make; cd ..
       - name: Install zmq
         run: cd zmq; sh install-zmq.sh
   test:
