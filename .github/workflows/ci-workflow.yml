@@ -20,8 +20,6 @@ jobs:
           cd euca-cutils; make; cd ..
           cd mio; make; cd ..
           cd cspot; make; cd ..
-      - name: Install zmq
-        run: cd zmq; sh install-zmq.sh
   test:
     runs-on: ubuntu-latest
     steps:
