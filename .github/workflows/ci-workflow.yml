@@ -21,7 +21,7 @@ jobs:
       - name: Install zmq
         run: cd zmq; sh install-zmq.sh
   test:
-    runs-on: centos-latest
+    runs-on: macos-latest
     steps:
       - name: Run hello world test file
         run: |
