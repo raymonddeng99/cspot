@@ -8,6 +8,6 @@ jobs:
     steps:
       - name: Run hello world test file
         run: |
-          cd cspot/cspot/cspot/apps/hello-world;
+          cd ../cspot/cspot/cspot/apps/hello-world;
           make;
           hw.c;
