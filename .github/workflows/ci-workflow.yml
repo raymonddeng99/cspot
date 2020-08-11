@@ -3,8 +3,9 @@ name: Run CI pipeline
 on: [push]
 
 jobs:
+  '''
   build:
-    # This job runs on Linux
+    # home/centos/actions-runner/_work
     runs-on: self-hosted
     steps:
       - name: Clone github repos
@@ -19,8 +20,9 @@ jobs:
           cd euca-cutils; make; cd ..
           cd mio; make; cd ..
           cd cspot; make; cd ..
+  '''
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Run hello world test file
         run: |
