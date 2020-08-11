@@ -5,9 +5,8 @@ on: [push]
 jobs:
   test:
     runs-on: self-hosted
+    env:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
     steps:
-      - name: Run hello world test file
-        run: |
-          cd cspot/apps/hello-world;
-          make;
-          hw.c;
+      - name: Test senspot-get
+        run: ./senspot-get -W woof://128.111.45.83/mnt/monitor/lrec.temp
