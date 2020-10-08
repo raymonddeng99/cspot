@@ -12,8 +12,6 @@ jobs:
           git clone https://github.com/richwolski/euca-cutils.git
           git clone https://github.com/MAYHEM-Lab/mio.git
           git clone https://github.com/MAYHEM-Lab/cspot.git
-      - name: Install CZMQ
-        run: cd cspot/zmq; sh install-ubuntu-zmq.sh
       - name: Run make in repos
         run: |
           cd euca-cutils; make; cd ..
