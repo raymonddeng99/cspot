@@ -3,6 +3,22 @@ name: Run CI pipeline
 on: [push]
 
 jobs:
+  build:
+    # This job runs on Linux
+    runs-on: self-hosted
+    steps:
+      - name: Clone github repos
+        run: |
+          git clone https://github.com/richwolski/euca-cutils.git
+          git clone https://github.com/MAYHEM-Lab/mio.git
+          git clone https://github.com/MAYHEM-Lab/cspot.git
+      - name: Install CZMQ
+        run: cd cspot/zmq; sh install-ubuntu-zmq.sh
+      - name: Run make in repos
+        run: |
+          cd euca-cutils; make; cd ..
+          cd mio; make; cd ..
+          cd cspot; make; cd ..
   test:
     runs-on: self-hosted
     env:
