@@ -24,6 +24,8 @@ jobs:
       - name: Test single makespace
         needs: single-namespace
         run: |
+        cd apps/ping-pong/cspot
         ./ping-pong-start -f ping-pong-test -s 10
-        tail namespace.txt >> tail_single_namespace.txt
+        tail namespace.log >> tail_single_namespace.txt
         diff tail_single_namespace.txt correct_tail_single_namespace.txt
+        rm tail_single_namespace.txt
