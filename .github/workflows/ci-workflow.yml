@@ -9,11 +9,11 @@ jobs:
     env:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
     steps:
-      -name: Set up local handler
+    - name: Set up local handler
       run: cd apps/ping-pong/cspot && ./woofc-namespace-platform &> namespace.log
 
 
-  test:
+  test-senspot:
     runs-on: self-hosted
     env:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
@@ -21,9 +21,14 @@ jobs:
       - name: Test senspot-get
         run: cd apps/senspot && ./senspot-get -W woof://128.111.45.83/mnt/monitor/lrec.temp
 
-      - name: Test single makespace
-        needs: single-namespace
-        run: |
+  test-single-namespace:
+    needs: single-namespace
+    runs-on: self-hosted
+    env:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
+    steps:
+     - name: Test single makespace
+     - run: |
         cd apps/ping-pong/cspot
         ./ping-pong-start -f ping-pong-test -s 10
         tail namespace.log >> tail_single_namespace.txt
