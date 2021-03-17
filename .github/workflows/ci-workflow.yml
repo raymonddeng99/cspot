@@ -3,10 +3,27 @@ name: Run CI pipeline
 on: [push]
 
 jobs:
+
+  single-namespace:
+    runs-on: self-hosted
+    env:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
+    steps:
+      -name: Set up local handler
+      run: cd apps/ping-pong/cspot && ./woofc-namespace-platform &> namespace.log
+
+
   test:
     runs-on: self-hosted
     env:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
     steps:
       - name: Test senspot-get
-        run: ./senspot-get -W woof://128.111.45.83/mnt/monitor/lrec.temp
+        run: cd apps/senspot && ./senspot-get -W woof://128.111.45.83/mnt/monitor/lrec.temp
+
+      - name: Test single makespace
+        needs: single-namespace
+        run: |
+        ./ping-pong-start -f ping-pong-test -s 10
+        tail namespace.txt >> tail_single_namespace.txt
+        diff tail_single_namespace.txt correct_tail_single_namespace.txt
