@@ -8,7 +8,5 @@ jobs:
     env:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
     steps:
-      - name: Where am I
-        run: mkdir hi
       - name: Test senspot-get
         run: ./senspot-get -W woof://128.111.45.83/mnt/monitor/lrec.temp
