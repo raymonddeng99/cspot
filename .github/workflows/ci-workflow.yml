@@ -30,6 +30,7 @@ jobs:
     steps:
     - name: Check output from single namespace tests
       run: |
+        cd cspot/apps/ping-pong/cspot
         tail namespace.log >> tail_single_namespace.txt
         diff tail_single_namespace.txt correct_tail_single_namespace.txt
         rm tail_single_namespace.txt
