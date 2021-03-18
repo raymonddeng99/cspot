@@ -22,12 +22,11 @@ jobs:
         ./woofc-namespace-platform &> namespace.log &
         ./ping-pong-start -f ping-pong-test -s 10
 
-  publish-single-namespace-test-results:
-    runs-on: self-hosted
-    uses: actions/upload-artifact@v2
-    with:
-      name: single-namespace-test
-      path: /home/actions-runner/_work/cspot/cspot/apps/ping-pong/cspot/namespace.log
+    - name: Publish test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: single-namespace-test
+        path: /home/actions-runner/_work/cspot/cspot/apps/ping-pong/cspot/namespace.log
 
   # test-single-namespace-output:
   #   needs: run-single-namespace
