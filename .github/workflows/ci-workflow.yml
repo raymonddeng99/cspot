@@ -16,21 +16,26 @@ jobs:
     env:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
     steps:
-    - name: Run tests on single makespace
+    - name: Run tests on single namespace
       run: |
         cd cspot/apps/ping-pong/cspot
         ./woofc-namespace-platform &> namespace.log &
         ./ping-pong-start -f ping-pong-test -s 10
+      uses: actions/upload-artifact@v2
+      with:
+        name: single-namespace-test
+        path: /home/actions-runner/_work/cspot/cspot/apps/ping-pong/cspot/namespace.log
 
-  test-single-namesapce-output:
-    needs: run-single-namespace
-    runs-on: self-hosted
-    env:
-      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
-    steps:
-    - name: Check output from single namespace tests
-      run: |
-        cd cspot/apps/ping-pong/cspot
-        tail namespace.log >> tail_single_namespace.txt
-        diff tail_single_namespace.txt correct_tail_single_namespace.txt
-        rm tail_single_namespace.txt
+  # test-single-namespace-output:
+  #   needs: run-single-namespace
+  #   runs-on: self-hosted
+  #   env:
+  #     LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
+  #   steps:
+  #   - name: Check output from single namespace tests
+  #     run: |
+  #       cd cspot/apps/ping-pong/cspot
+  #       tail namespace.log >> tail_single_namespace.txt
+  #       diff tail_single_namespace.txt correct_tail_single_namespace.txt
+  #       rm tail_single_namespace.txt
+
