@@ -3,16 +3,6 @@ name: Run CI pipeline
 on: [push]
 
 jobs:
-
-  single-namespace:
-    runs-on: self-hosted
-    env:
-      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
-    steps:
-    - name: Set up local handler
-      run: cd cspot/apps/ping-pong/cspot && ./woofc-namespace-platform &> namespace.log
-
-
   test-senspot:
     runs-on: self-hosted
     env:
@@ -30,7 +20,5 @@ jobs:
     - name: Test single makespace
       run: |
         cd cspot/apps/ping-pong/cspot
+        ./woofc-namespace-platform &> namespace.log &
         ./ping-pong-start -f ping-pong-test -s 10
-        tail namespace.log >> tail_single_namespace.txt
-        diff tail_single_namespace.txt correct_tail_single_namespace.txt
-        rm tail_single_namespace.txt
