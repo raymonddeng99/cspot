@@ -10,7 +10,7 @@ jobs:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
     steps:
     - name: Set up local handler
-      run: cd apps/ping-pong && make && cd/cspot && ./woofc-namespace-platform &> namespace.log
+      run: cd cspot/apps/ping-pong/cspot && ./woofc-namespace-platform &> namespace.log
 
 
   test-senspot:
@@ -19,7 +19,7 @@ jobs:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
     steps:
     - name: Test senspot-get
-      run: cd apps/senspot && make && ./senspot-get -W woof://128.111.45.83/mnt/monitor/lrec.temp
+      run: cd cspot/apps/senspot && ./senspot-get -W woof://128.111.45.83/mnt/monitor/lrec.temp
 
   test-single-namespace:
     needs: single-namespace
@@ -29,7 +29,7 @@ jobs:
     steps:
     - name: Test single makespace
       run: |
-        cd apps/ping-pong/cspot
+        cd cspot/apps/ping-pong/cspot
         ./ping-pong-start -f ping-pong-test -s 10
         tail namespace.log >> tail_single_namespace.txt
         diff tail_single_namespace.txt correct_tail_single_namespace.txt
