@@ -11,13 +11,25 @@ jobs:
     - name: Test senspot-get
       run: cd cspot/apps/senspot && ./senspot-get -W woof://128.111.45.83/mnt/monitor/lrec.temp
 
-  test-single-namespace:
+  run-single-namespace:
     runs-on: self-hosted
     env:
       LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
     steps:
-    - name: Test single makespace
+    - name: Run tests on single makespace
       run: |
         cd cspot/apps/ping-pong/cspot
         ./woofc-namespace-platform &> namespace.log &
         ./ping-pong-start -f ping-pong-test -s 10
+
+  test-single-namesapce:
+    needs: run-single-namespace
+    runs-on: self-hosted
+    env:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:/usr/local/lib
+    steps:
+    - name: Check output from single namespace tests
+      run: |
+        tail namespace.log >> tail_single_namespace.txt
+        diff tail_single_namespace.txt correct_tail_single_namespace.txt
+        rm tail_single_namespace.txt
