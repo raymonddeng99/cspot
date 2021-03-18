@@ -22,7 +22,7 @@ jobs:
         ./woofc-namespace-platform &> namespace.log &
         ./ping-pong-start -f ping-pong-test -s 10
 
-  test-single-namesapce:
+  test-single-namesapce-output:
     needs: run-single-namespace
     runs-on: self-hosted
     env:
